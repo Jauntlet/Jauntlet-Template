@@ -1,0 +1,45 @@
+# C/C++ Build Artifacts
+*.o
+*.obj
+*.so
+
+# Executables
+*.exe
+build/visualizer
+*.AppImage
+
+# Visual Studio
+.vs/
+.cache/
+*.vcxproj.FileListAbsolute.txt
+build/Scoundrills.res
+
+# CMake Build Files
+build/CMakeFiles/
+build/CMakeCache.txt
+build/cmake_install.cmake
+build/Makefile
+build/compile_commands.json
+build/.cmake
+
+# Build Log Files
+*.tlog
+*.pdb
+*.log
+*.recipe
+*.ilk
+*.idb
+*.iobj
+*.ipdb
+
+# Compiled Jauntlet Library Files
+build/Jauntlet.lib
+dependencies/lib/libjauntlet.a
+
+# Profiler Output Files
+callgrind.out.*
+
+# Ninja Files
+*.ninja
+*.ninja_log
+*.ninja_deps
