@@ -21,13 +21,13 @@ private:
 	void drawGame();
 
 	int _screenWidth = 1280, _screenHeight = 720;
-	Jauntlet::Window _window;
+	Window _window;
 
-	Jauntlet::GLSLProgram _colorProgram;
+	GLSLProgram _colorProgram;
 	
-	Jauntlet::Camera2D _camera;
+	Camera2D _camera;
 
-	Jauntlet::InputManager _inputManager;
+	InputManager _inputManager;
 
 	float _fps = 0;
 };

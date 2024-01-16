@@ -18,7 +18,7 @@ void MainGame::initSystems() {
 	Jauntlet::init();
 
 	// set some default window properties
-	_window.setBackgroundColor(Jauntlet::Color(76, 24, 32));
+	_window.setBackgroundColor(Color(76, 24, 32));
 	_window.setWindowIcon("Textures/Icon.png");
 	
 	// set default missing Texture
