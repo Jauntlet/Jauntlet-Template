@@ -4,8 +4,9 @@
 #include <Jauntlet/Rendering/Window.h>
 #include <Jauntlet/Rendering/GLSLProgram.h>
 #include <Jauntlet/Rendering/Textures/ResourceManager.h>
-#include <Jauntlet/Rendering/Cameras/Camera2D.h>
+#include <Jauntlet/Rendering/Cameras/Camera.h>
 #include <Jauntlet/Inputs/InputManager.h>
+#include <Jauntlet/Rendering/Textures/SpriteBatch.h>
 
 class MainGame {
 public:
@@ -25,9 +26,11 @@ private:
 
 	GLSLProgram _colorProgram;
 	
-	Camera2D _camera;
+	Camera _camera;
 
 	InputManager _inputManager;
+
+	SpriteBatch _batch;
 
 	float _fps = 0;
 };
