@@ -1,8 +1,5 @@
 #include "MainGame.h"
 
-#include <iostream>
-#include <Jauntlet/JMath.h>
-
 MainGame::MainGame() 
 	: 
 	_window("Jauntlet Game Engine", _screenWidth, _screenHeight, 0),
@@ -20,8 +17,6 @@ void MainGame::initSystems() {
 	// initialize Jauntlet
 	Jauntlet::init();
 
-	_camera.setPosition(glm::vec3(0, 0, 50));
-
 	// set some default window properties
 	_window.setBackgroundColor(Color(76, 24, 32));
 	_window.setWindowIcon("Textures/Icon.png");
@@ -35,9 +30,8 @@ void MainGame::initSystems() {
 
 void MainGame::initShaders() {
 	// compile a vertex and fragment shader, with properties to be able to render simple objects.
-	_colorProgram.compileShaders("Shaders/colorShading.vert", "Shaders/colorShading.frag");
+	_colorProgram.compileShaders("Shaders/model.vert", "Shaders/model.frag");
 	_colorProgram.addAttribute("vertexPosition");
-	_colorProgram.addAttribute("vertexColor");
 	_colorProgram.addAttribute("vertexUV");
 	_colorProgram.linkShaders();
 }
@@ -64,8 +58,8 @@ void MainGame::gameLoop() {
 		// draw the game
 		drawGame();
 
-		// end a frame. This returns the FPS of the game
-		_fps = Jauntlet::Time::endFrame();
+		// end a frame. This can be made to return the FPS of the game.
+		Jauntlet::Time::endFrame();
 	}
 }
 
@@ -74,35 +68,35 @@ void MainGame::processInput() {
 	_inputManager.processInput();
 
 	if (_inputManager.isKeyDown(SDLK_w)) {
-		_camera.translate(glm::vec3(0.0f, 0.0f, -1.0f * Jauntlet::Time::getDeltaTime() * 10));
+		_camera.translate(glm::vec3(0.0f, 0.0f, -1.0f * Jauntlet::Time::getDeltaTime() * 8));
 	}
 	if (_inputManager.isKeyDown(SDLK_s)) {
-		_camera.translate(glm::vec3(0.0f, 0.0f, 1.0f * Jauntlet::Time::getDeltaTime() * 10));
+		_camera.translate(glm::vec3(0.0f, 0.0f, 1.0f * Jauntlet::Time::getDeltaTime() * 8));
 	}
 	if (_inputManager.isKeyDown(SDLK_a)) {
-		_camera.translate(glm::vec3(-1.0f * Jauntlet::Time::getDeltaTime() * 10, 0.0f, 0.0f));
+		_camera.translate(glm::vec3(-1.0f * Jauntlet::Time::getDeltaTime() * 8, 0.0f, 0.0f));
 	}
 	if (_inputManager.isKeyDown(SDLK_d)) {
-		_camera.translate(glm::vec3(1.0f * Jauntlet::Time::getDeltaTime() * 10, 0.0f, 0.0f));
+		_camera.translate(glm::vec3(1.0f * Jauntlet::Time::getDeltaTime() * 8, 0.0f, 0.0f));
 	}
 	if (_inputManager.isKeyDown(SDLK_q)) {
-		_camera.translate(glm::vec3(0.0f, 1.0f * Jauntlet::Time::getDeltaTime() * 10, 0.0f));
+		_camera.translate(glm::vec3(0.0f, 1.0f * Jauntlet::Time::getDeltaTime() * 4, 0.0f));
 	}
 	if (_inputManager.isKeyDown(SDLK_e)) {
-		_camera.translate(glm::vec3(0.0f, -1.0f * Jauntlet::Time::getDeltaTime() * 10, 0.0f));
+		_camera.translate(glm::vec3(0.0f, -1.0f * Jauntlet::Time::getDeltaTime() * 4, 0.0f));
 	}
-
+	
 	if (_inputManager.isKeyDown(SDLK_LEFT)) {
-		_camera.rotateX(-0.4f * Jauntlet::Time::getDeltaTime());
+		_camera.rotateX(-0.8f * Jauntlet::Time::getDeltaTime());
 	}
 	if (_inputManager.isKeyDown(SDLK_RIGHT)) {
-		_camera.rotateX(0.4f * Jauntlet::Time::getDeltaTime());
+		_camera.rotateX(0.8f * Jauntlet::Time::getDeltaTime());
 	}
 	if (_inputManager.isKeyDown(SDLK_UP)) {
-		_camera.rotateY(-0.4f * Jauntlet::Time::getDeltaTime());
+		_camera.rotateY(-0.8f * Jauntlet::Time::getDeltaTime());
 	}
 	if (_inputManager.isKeyDown(SDLK_DOWN)) {
-		_camera.rotateY(0.4f * Jauntlet::Time::getDeltaTime());
+		_camera.rotateY(0.8f * Jauntlet::Time::getDeltaTime());
 	}
 }
 
@@ -115,10 +109,8 @@ void MainGame::drawGame() {
 	
 	// activate camera
 	_camera.setActive();
-
-	_batch.begin();
-	_batch.draw(glm::vec4(-16, -16, 32, 32), Jauntlet::ResourceManager::getTexture("Textures/craig.png").id);
-	_batch.endAndRender();
+	
+	monkey.draw();
 
 	// disable shaders
 	_colorProgram.unuse();

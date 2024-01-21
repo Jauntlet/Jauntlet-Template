@@ -7,6 +7,7 @@
 #include <Jauntlet/Rendering/Cameras/Camera.h>
 #include <Jauntlet/Inputs/InputManager.h>
 #include <Jauntlet/Rendering/Textures/SpriteBatch.h>
+#include <Jauntlet/Rendering/Model.h>
 
 class MainGame {
 public:
@@ -30,7 +31,6 @@ private:
 
 	InputManager _inputManager;
 
-	SpriteBatch _batch;
-
-	float _fps = 0;
+	Model monkey = Model("Models/monkey.obj", "Textures/Icon.png");
+	//SpriteBatch _batch;
 };
