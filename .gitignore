@@ -1,6 +1,6 @@
 # C/C++ Build Artifacts
 *.o
-*.obj
+build/*.obj
 *.so
 
 # Executables
