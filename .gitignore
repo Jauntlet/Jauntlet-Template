@@ -13,6 +13,7 @@ build/visualizer
 .cache/
 *.vcxproj.FileListAbsolute.txt
 build/Scoundrills.res
+enc_temp_folder/*
 
 # CMake Build Files
 build/CMakeFiles/
