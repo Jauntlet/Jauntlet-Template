@@ -68,22 +68,22 @@ void MainGame::processInput() {
 	_inputManager.processInput();
 
 	if (_inputManager.isKeyDown(SDLK_w)) {
-		_camera.translate(glm::vec3(0.0f, 0.0f, -1.0f * Jauntlet::Time::getDeltaTime() * 8));
+		_camera.translate(glm::vec3(0.0f, 0.0f, -8.0f * Jauntlet::Time::getDeltaTime()));
 	}
 	if (_inputManager.isKeyDown(SDLK_s)) {
-		_camera.translate(glm::vec3(0.0f, 0.0f, 1.0f * Jauntlet::Time::getDeltaTime() * 8));
+		_camera.translate(glm::vec3(0.0f, 0.0f, 8.0f * Jauntlet::Time::getDeltaTime()));
 	}
 	if (_inputManager.isKeyDown(SDLK_a)) {
-		_camera.translate(glm::vec3(-1.0f * Jauntlet::Time::getDeltaTime() * 8, 0.0f, 0.0f));
+		_camera.translate(glm::vec3(-8.0f * Jauntlet::Time::getDeltaTime(), 0.0f, 0.0f));
 	}
 	if (_inputManager.isKeyDown(SDLK_d)) {
-		_camera.translate(glm::vec3(1.0f * Jauntlet::Time::getDeltaTime() * 8, 0.0f, 0.0f));
+		_camera.translate(glm::vec3(8.0f * Jauntlet::Time::getDeltaTime(), 0.0f, 0.0f));
 	}
 	if (_inputManager.isKeyDown(SDLK_q)) {
-		_camera.translate(glm::vec3(0.0f, 1.0f * Jauntlet::Time::getDeltaTime() * 4, 0.0f));
+		_camera.translate(glm::vec3(0.0f, 4.0f * Jauntlet::Time::getDeltaTime(), 0.0f));
 	}
 	if (_inputManager.isKeyDown(SDLK_e)) {
-		_camera.translate(glm::vec3(0.0f, -1.0f * Jauntlet::Time::getDeltaTime() * 4, 0.0f));
+		_camera.translate(glm::vec3(0.0f, -4.0f * Jauntlet::Time::getDeltaTime(), 0.0f));
 	}
 	
 	if (_inputManager.isKeyDown(SDLK_LEFT)) {
