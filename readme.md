@@ -1,4 +1,4 @@
-# Scoundrills
+# Jauntlet Template
 
 <h2>Compilation</h2>
 
