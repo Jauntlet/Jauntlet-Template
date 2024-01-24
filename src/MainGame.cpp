@@ -1,5 +1,6 @@
 #include "MainGame.h"
 #include <cmath>
+#include <Jauntlet/JMath.h>
 
 MainGame::MainGame() 
 	: 
