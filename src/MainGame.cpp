@@ -1,4 +1,5 @@
 #include "MainGame.h"
+#include <cmath>
 
 MainGame::MainGame() 
 	: 
@@ -68,16 +69,16 @@ void MainGame::processInput() {
 	_inputManager.processInput();
 
 	if (_inputManager.isKeyDown(SDLK_w)) {
-		_camera.translate(glm::vec3(0.0f, 0.0f, -8.0f * Jauntlet::Time::getDeltaTime()));
+		_camera.translate(glm::vec3(-8.0f * cos(_cameraRotationX + M_PI_2) * Jauntlet::Time::getDeltaTime(), 0.0f, -8.0f * sin(_cameraRotationX + M_PI_2) * Jauntlet::Time::getDeltaTime()));
 	}
 	if (_inputManager.isKeyDown(SDLK_s)) {
-		_camera.translate(glm::vec3(0.0f, 0.0f, 8.0f * Jauntlet::Time::getDeltaTime()));
+		_camera.translate(glm::vec3(8.0f * cos(_cameraRotationX + M_PI_2) * Jauntlet::Time::getDeltaTime(), 0.0f, 8.0f * sin(_cameraRotationX + M_PI_2) * Jauntlet::Time::getDeltaTime()));
 	}
 	if (_inputManager.isKeyDown(SDLK_a)) {
-		_camera.translate(glm::vec3(-8.0f * Jauntlet::Time::getDeltaTime(), 0.0f, 0.0f));
+		_camera.translate(glm::vec3(-8.0f * cos(_cameraRotationX) * Jauntlet::Time::getDeltaTime(), 0.0f, -8.0f * sin(_cameraRotationX) * Jauntlet::Time::getDeltaTime()));
 	}
 	if (_inputManager.isKeyDown(SDLK_d)) {
-		_camera.translate(glm::vec3(8.0f * Jauntlet::Time::getDeltaTime(), 0.0f, 0.0f));
+		_camera.translate(glm::vec3(8.0f * cos(_cameraRotationX) * Jauntlet::Time::getDeltaTime(), 0.0f, 8.0f * sin(_cameraRotationX) * Jauntlet::Time::getDeltaTime()));
 	}
 	if (_inputManager.isKeyDown(SDLK_q)) {
 		_camera.translate(glm::vec3(0.0f, 4.0f * Jauntlet::Time::getDeltaTime(), 0.0f));
@@ -88,9 +89,11 @@ void MainGame::processInput() {
 	
 	if (_inputManager.isKeyDown(SDLK_LEFT)) {
 		_camera.rotateX(-0.8f * Jauntlet::Time::getDeltaTime());
+		_cameraRotationX -= 0.8f * Jauntlet::Time::getDeltaTime();
 	}
 	if (_inputManager.isKeyDown(SDLK_RIGHT)) {
 		_camera.rotateX(0.8f * Jauntlet::Time::getDeltaTime());
+		_cameraRotationX += 0.8f * Jauntlet::Time::getDeltaTime();
 	}
 	if (_inputManager.isKeyDown(SDLK_UP)) {
 		_camera.rotateY(-0.8f * Jauntlet::Time::getDeltaTime());

@@ -29,6 +29,8 @@ private:
 	
 	Camera _camera;
 
+	float _cameraRotationX = 0.0f;
+
 	InputManager _inputManager;
 
 	Model monkey = Model("Models/monkey.obj", "Textures/Icon.png");
