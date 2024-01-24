@@ -26,6 +26,7 @@ private:
 	Window _window;
 
 	GLSLProgram _colorProgram;
+	GLSLProgram _lightingProgram;
 	
 	Camera _camera;
 
@@ -34,5 +35,6 @@ private:
 	InputManager _inputManager;
 
 	Model monkey = Model("Models/monkey.obj", "Textures/Icon.png");
-	//SpriteBatch _batch;
+	
+	unsigned int gBuffer, gPosition, gNormal, gColorSpec;
 };

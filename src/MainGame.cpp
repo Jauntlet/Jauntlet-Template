@@ -6,7 +6,32 @@ MainGame::MainGame()
 	_window("Jauntlet Game Engine", _screenWidth, _screenHeight, 0),
 	_camera(_screenWidth, _screenHeight) 
 {
-	// Empty
+	glGenFramebuffers(1, &gBuffer);
+	glBindFramebuffer(GL_FRAMEBUFFER, gBuffer);
+
+	glGenTextures(1, &gPosition);
+	glBindTexture(GL_TEXTURE_2D, gPosition);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, _screenWidth, _screenHeight, 0, GL_RGBA, GL_FLOAT, NULL);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, gPosition, 0);
+
+	glGenTextures(1, &gNormal);
+	glBindTexture(GL_TEXTURE_2D, gNormal);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, _screenWidth, _screenHeight, 0, GL_RGBA, GL_FLOAT, NULL);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT1, GL_TEXTURE_2D, gNormal, 0);
+
+	glGenTextures(1, &gColorSpec);
+	glBindTexture(GL_TEXTURE_2D, gColorSpec);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, _screenWidth, _screenHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT2, GL_TEXTURE_2D, gColorSpec, 0);
+
+	unsigned int attachments[3] = { GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1, GL_COLOR_ATTACHMENT2 };
+	glDrawBuffers(3, attachments);
 }
 
 void MainGame::run() {
@@ -35,6 +60,12 @@ void MainGame::initShaders() {
 	_colorProgram.addAttribute("vertexPosition");
 	_colorProgram.addAttribute("vertexUV");
 	_colorProgram.linkShaders();
+	
+	_lightingProgram.compileShaders("Shaders/gbuffer.vert", "Shaders/gbuffer.frag");
+	_lightingProgram.addAttribute("texCoords");
+	_lightingProgram.addAttribute("fragPos");
+	_lightingProgram.addAttribute("normal");
+	_lightingProgram.linkShaders();
 }
 
 void MainGame::gameLoop() {
@@ -107,6 +138,18 @@ void MainGame::drawGame() {
 	// Reset screen
 	_window.clearScreen();
 	
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, gPosition);
+	glActiveTexture(GL_TEXTURE1);
+	glBindTexture(GL_TEXTURE_2D, gNormal);
+	glActiveTexture(GL_TEXTURE2);
+	glBindTexture(GL_TEXTURE_2D, gColorSpec);
+
+	_lightingProgram.use();
+
+	glUniform1i(_lightingProgram.getUniformLocation("texture_diffuse"), gPosition);
+	glUniform1i(_lightingProgram.getUniformLocation("texture_specular"), gColorSpec);
+
 	// activate shaders
 	_colorProgram.use();
 	
