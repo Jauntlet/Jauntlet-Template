@@ -33,6 +33,6 @@ private:
 
 	InputManager _inputManager;
 
-	Model monkey = Model("Models/monkey.obj", "Textures/Icon.png");
+	Model monkey = Model(ModelType::OBJ, "Models/monkey.obj", "Textures/Icon.png");
 	//SpriteBatch _batch;
 };
