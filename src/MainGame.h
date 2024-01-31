@@ -8,6 +8,7 @@
 #include <Jauntlet/Inputs/InputManager.h>
 #include <Jauntlet/Rendering/Textures/SpriteBatch.h>
 #include <Jauntlet/Rendering/Model.h>
+#include <Jauntlet/Scenes/Scene.h>
 
 class MainGame {
 public:
@@ -34,5 +35,6 @@ private:
 	InputManager _inputManager;
 
 	Model monkey = Model(ModelType::OBJ, "Models/monkey.obj", "Textures/Icon.png");
-	//SpriteBatch _batch;
+	
+	Scene scene = Scene("Logs/scene.json");
 };
